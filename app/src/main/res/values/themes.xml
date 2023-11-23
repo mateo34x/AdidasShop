@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.AdidasShop" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="StatusBarStyle" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <style name="StatusBarStyle.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="StatusBarStyle.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="StatusBarStyle.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+</resources>

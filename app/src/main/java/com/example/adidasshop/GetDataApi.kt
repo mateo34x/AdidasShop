@@ -1,7 +1,9 @@
 package com.example.adidasshop
 
+import android.app.Activity
 import android.content.ClipData.Item
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -15,7 +17,7 @@ import okhttp3.Response
 import java.io.IOException
 
 class GetDataApi {
-    fun date(context: Context) {
+    fun date(activity: Activity){
 
         val client = OkHttpClient().newBuilder().build()
         val gson = Gson()
@@ -31,15 +33,51 @@ class GetDataApi {
 
             override fun onResponse(call: Call, response: Response) {
 
+                var itemsProcessed = 0
                 if (response.isSuccessful) {
                     val responseData = response.body?.string()
                     val items = gson.fromJson(responseData, Array<GroceryItem>::class.java).toList()
 
                     // Mostrar datos en el Log utilizando el método toString() de GroceryItem
                     items.forEach { item ->
-                        Log.e("Mateo", item.toString())
-                        Log.e("valor",""+item.fotoBase64.length+"\n")
+                        val id = item.id
+                        val name = item.name
+                        val description = item.description
+                        val prices = item.price
+                        val quantity = item.quantity
+                        val category = item.category
+                        val nombre = item.nombre
+                        val mimeType = item.mimeType
+                        val fotoBase1 = item.fotoBase1
+                        val fotoBase2 = item.fotoBase2
+
+                        ShoesList.shoesList.add(
+
+                            GroceryItem(id,name,description,prices,quantity,category, nombre, mimeType, fotoBase1,fotoBase2)
+
+                        )
+                        itemsProcessed++
                     }
+
+                    if (itemsProcessed==items.size){
+                        val sharedPreferences =
+                            activity.getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+                        val editor = sharedPreferences.edit()
+
+                        val gson = Gson()
+                        val json = gson.toJson(ShoesList.shoesList)
+
+                        editor.putString("shoeslocal", json)
+                        editor.apply()
+
+                        Log.e("valor",""+ShoesList.shoesList.toString())
+
+                        val intent = Intent(activity, MainActivity::class.java)
+                        activity.startActivity(intent)
+                        activity.finish()
+
+                    }
+
                 }
             }
 

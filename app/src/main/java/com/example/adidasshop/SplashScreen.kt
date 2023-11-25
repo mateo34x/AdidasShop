@@ -23,14 +23,9 @@ class SplashScreen : AppCompatActivity() {
         icon = findViewById(R.id.icon);
         val url = "android.resource://" + getPackageName()+ "/" + R.raw.logoanimated2
         uri = Uri.parse(url)
-
         icon.setVideoURI(uri)
-
-        mediaController = MediaController(this@SplashScreen)
-        mediaController.setAnchorView(icon)
-        icon.setMediaController(mediaController)
-
         icon.start()
+
 
         val handler = Handler()
         val delayMillis = 4000
@@ -41,6 +36,8 @@ class SplashScreen : AppCompatActivity() {
             finish()
 
         }, delayMillis.toLong())
+
+
 
     }
 }

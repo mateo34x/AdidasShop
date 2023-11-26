@@ -1,5 +1,6 @@
 package com.example.adidasshop
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,12 +30,20 @@ class ShoesAdapter(private val datalist: MutableList<GroceryItem> ) :
         holder.priceshoe.text = currentItem.price
 
 
-        val encode = "data:" + currentItem.mimeType + ";base64," + currentItem.fotoBase1
+        val encode = currentItem.fotoBase1
         encode.let {
             Glide.with(holder.itemView)
                 .asBitmap()
                 .load(it)
                 .into(holder.ImgShoes)
+        }
+
+
+        holder.itemView.setOnClickListener {
+            val enconde2 = currentItem.fotoBase2
+            val intent = Intent(holder.itemView.context,DetailShoes::class.java)
+            intent.putExtra("photo2",enconde2)
+            holder.itemView.context.startActivity(intent)
         }
 
     }

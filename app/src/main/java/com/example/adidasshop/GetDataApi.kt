@@ -5,6 +5,7 @@ import android.content.ClipData.Item
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.widget.Toast
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.Call
@@ -21,9 +22,11 @@ class GetDataApi {
 
         val client = OkHttpClient().newBuilder().build()
         val gson = Gson()
+        val token = "eyJBdXRob3JpemF0aW9uIjoiQmVhcmVyIiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiJtYXRlbzE1cmdAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiZXhwIjoxNzM4MzQ4MTQwfQ.MZBNBXVj1kugHTLkfVTkez-8Hz1jLUvwDvRJ0O4KqB0"
 
         val request =
             Request.Builder().url("https://apishopfake-production.up.railway.app/view/findAll")
+                .header("Authorization", "Bearer $token")
                 .get().build();
 
         client.newCall(request).enqueue(object : Callback {
@@ -78,6 +81,8 @@ class GetDataApi {
 
                     }
 
+                }else if (response.code == 401){
+                    Toast.makeText(activity,"Token invalid,\ngenerate new token", Toast.LENGTH_LONG).show()
                 }
             }
 

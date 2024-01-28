@@ -13,13 +13,6 @@ import com.bumptech.glide.Glide
 class ShoesAdapter(private val datalist: MutableList<GroceryItem> ) :
     RecyclerView.Adapter<ShoesAdapter.ViewHolder>() {
 
-
-
-
-
-
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.shoes_layout, parent, false)
         return ViewHolder(view)    }
